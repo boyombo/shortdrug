@@ -1,9 +1,9 @@
 webpackJsonp([1,5],{
 
-/***/ 1023:
+/***/ 1026:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(515);
+module.exports = __webpack_require__(516);
 
 
 /***/ }),
@@ -13,7 +13,7 @@ module.exports = __webpack_require__(515);
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__api_service__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__api_service__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(92);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthGuard; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -58,8 +58,8 @@ var AuthGuard = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_service__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_toastr_ng2_toastr__ = __webpack_require__(183);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_service__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_toastr_ng2_toastr__ = __webpack_require__(125);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_toastr_ng2_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_ng2_toastr_ng2_toastr__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_startWith__ = __webpack_require__(187);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_startWith___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_startWith__);
@@ -99,14 +99,8 @@ var FindComponent = (function () {
         this.api.getStates().subscribe(function (data) {
             _this.states = data;
             _this.names = data.map(function (item) { return item.name; });
-            console.log('states ' + data);
-            console.log('names ' + _this.names);
-            console.log(_this.filterStates('La'));
             var control = _this.findForm.controls.state;
             console.log(control);
-            // this.filteredStates = control.valueChanges
-            //   .startWith(null)
-            //   .map(name => this.filterStates(name));
         });
     };
     FindComponent.prototype.findDrugs = function () {
@@ -125,11 +119,20 @@ var FindComponent = (function () {
         var val = this.findForm.value.state;
         this.filteredStates = this.filterStates(val);
     };
+    FindComponent.prototype.saveStock = function (stock) {
+        var _this = this;
+        console.log('saving stock');
+        this.api.saveDrug(stock).subscribe(function (result) {
+            _this.toastr.success('Saved Stock', 'Done');
+        }, function (error) {
+            _this.toastr.error(error, 'Wait up!');
+        });
+    };
     FindComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-find',
-            template: __webpack_require__(765),
-            styles: [__webpack_require__(748)]
+            template: __webpack_require__(767),
+            styles: [__webpack_require__(749)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__api_service__["a" /* ApiService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__api_service__["a" /* ApiService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* FormBuilder */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* FormBuilder */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3_ng2_toastr_ng2_toastr__["ToastsManager"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_ng2_toastr_ng2_toastr__["ToastsManager"]) === 'function' && _d) || Object])
     ], FindComponent);
@@ -140,13 +143,163 @@ var FindComponent = (function () {
 
 /***/ }),
 
+/***/ 46:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(774);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch__ = __webpack_require__(294);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ApiService; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var ApiService = (function () {
+    function ApiService(http) {
+        this.http = http;
+        this.BASE_URL = 'http://everyday.com.ng/drugs/';
+        // BASE_URL: string = 'http://localhost:8000/drugs/';
+        // BASE_URL: string = 'http://192.168.10.2:8000/drug/';
+        this.REGISTER_URL = this.BASE_URL + 'register/';
+        this.AUTH_URL = this.BASE_URL + 'auth/';
+        this.STOCK_URL = this.BASE_URL + 'getstock/';
+        this.PROFILE_URL = this.BASE_URL + 'profile/';
+        this.STATES_URL = this.BASE_URL + 'states/';
+        this.UPLOAD_URL = this.BASE_URL + 'addstock/';
+        this.SEARCH_URL = this.BASE_URL + 'search/';
+        this.REMOVE_URL = this.BASE_URL + 'remove/';
+        this.SAVEDRUG_URL = this.BASE_URL + 'savedrug/';
+        this.REMOVESAVEDDRUG_URL = this.BASE_URL + 'removesaveddrug/';
+        this.SAVEDDRUGS_URL = this.BASE_URL + 'getsaveddrugs/';
+        this.isLoggedIn = false;
+    }
+    ApiService.prototype.storeUser = function (profile) {
+        localStorage.setItem('drugs_auth', profile.email);
+        localStorage.setItem('drugs_profile', JSON.stringify(profile));
+    };
+    ApiService.prototype.getUser = function () {
+        return localStorage.getItem('drugs_auth');
+    };
+    ApiService.prototype.getProfile = function () {
+        return JSON.parse(localStorage.getItem('drugs_profile'));
+    };
+    ApiService.prototype.getStates = function () {
+        return this.http.get(this.STATES_URL)
+            .map(function (res) {
+            var data = res.json();
+            return data.states;
+        }).catch(function (error) {
+            return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || 'Server Error');
+        });
+    };
+    ApiService.prototype.getStock = function () {
+        var id = this.getProfile().id;
+        return this.http.get(this.STOCK_URL + id + "/")
+            .map(function (res) { return res.json().stock; })
+            .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || 'Server Error'); });
+    };
+    ApiService.prototype.searchDrugs = function (values) {
+        var params = "term=" + values.term + "&state=" + values.state;
+        return this.http.get(this.SEARCH_URL + "?" + params)
+            .map(function (res) { return res.json().stock; })
+            .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || 'Server Error'); });
+    };
+    ApiService.prototype.removeDrug = function (drug) {
+        return this.http.get(this.REMOVE_URL + drug.id + '/')
+            .map(function (res) { return res.json().stock; })
+            .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || 'Server Error'); });
+    };
+    ApiService.prototype.saveDrug = function (values) {
+        var id = this.getProfile().id;
+        var data = "stock=" + values.id;
+        var url = this.SAVEDRUG_URL + id + "/";
+        return this.doPost(url, data)
+            .map(function (res) { return res.json().stock; })
+            .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || 'Server Error'); });
+    };
+    ApiService.prototype.getSavedDrugs = function () {
+        var id = this.getProfile().id;
+        return this.http.get(this.SAVEDDRUGS_URL + id + "/")
+            .map(function (res) { return res.json().stock; })
+            .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || 'Server Error'); });
+    };
+    ApiService.prototype.removeSavedDrug = function (values) {
+        var data = "stock=" + values.id;
+        return this.doPost(this.REMOVESAVEDDRUG_URL, data)
+            .map(function (res) { return res.json().stock; })
+            .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || 'Server Error'); });
+    };
+    ApiService.prototype.registerAccount = function (values) {
+        var data = "name=" + values.name + "&email=" + values.email + "&phone=" + values.phone + "&address=" + values.address + "&state=" + values.state + "&password=" + values.pwd1;
+        return this.doPost(this.REGISTER_URL, data)
+            .map(function (res) { return res.json(); })
+            .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || 'Server Error'); });
+    };
+    ApiService.prototype.authenticate = function (values) {
+        var _this = this;
+        var data = "username=" + values.email + "&password=" + values.password;
+        return this.doPost(this.AUTH_URL, data)
+            .map(function (res) {
+            console.log(res);
+            _this.isLoggedIn = true;
+            _this.storeUser(res.json().pharmacy);
+            return res.json();
+        })
+            .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || 'Server Error'); });
+    };
+    ApiService.prototype.uploadDrug = function (values) {
+        var id = this.getProfile().id;
+        var data = "brand_name=" + values.brand_name + "&generic_name=" + values.generic_name + "&manufacturer=" + values.manufacturer + "&batch_number=" + values.batch_number + "&expiry_date=" + values.expiry_date.formatted + "&quantity=" + values.quantity + "&pack_size=" + values.pack_size + "&unit_cost=" + values.unit_cost;
+        return this.doPost(this.UPLOAD_URL + id + "/", data)
+            .map(function (res) {
+            console.log(res);
+            return res.json();
+        })
+            .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || 'Server Error'); });
+    };
+    ApiService.prototype.doPost = function (url, params) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        return this.http.post(url, params, { headers: headers });
+    };
+    ApiService.prototype.logout = function () {
+        this.isLoggedIn = false;
+        localStorage.clear();
+    };
+    ApiService = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */]) === 'function' && _a) || Object])
+    ], ApiService);
+    return ApiService;
+    var _a;
+}());
+//# sourceMappingURL=api.service.js.map
+
+/***/ }),
+
 /***/ 460:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_service__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_service__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__(92);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -189,8 +342,8 @@ var LoginComponent = (function () {
     LoginComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-login',
-            template: __webpack_require__(766),
-            styles: [__webpack_require__(749)]
+            template: __webpack_require__(768),
+            styles: [__webpack_require__(750)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* FormBuilder */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* FormBuilder */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__api_service__["a" /* ApiService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__api_service__["a" /* ApiService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* Router */]) === 'function' && _c) || Object])
     ], LoginComponent);
@@ -206,9 +359,9 @@ var LoginComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__api_service__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__api_service__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(92);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_toastr_ng2_toastr__ = __webpack_require__(183);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_toastr_ng2_toastr__ = __webpack_require__(125);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_toastr_ng2_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_ng2_toastr_ng2_toastr__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_material__ = __webpack_require__(414);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProfileComponent; });
@@ -274,8 +427,8 @@ var ProfileComponent = (function () {
     ProfileComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-profile',
-            template: __webpack_require__(767),
-            styles: [__webpack_require__(750)]
+            template: __webpack_require__(769),
+            styles: [__webpack_require__(751)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__api_service__["a" /* ApiService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__api_service__["a" /* ApiService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_ng2_toastr_ng2_toastr__["ToastsManager"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_ng2_toastr_ng2_toastr__["ToastsManager"]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__angular_material__["b" /* MdDialog */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__angular_material__["b" /* MdDialog */]) === 'function' && _e) || Object])
     ], ProfileComponent);
@@ -306,7 +459,7 @@ var MyDialogRef = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_service__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_service__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__(92);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegisterComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -368,8 +521,8 @@ var RegisterComponent = (function () {
     RegisterComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-register',
-            template: __webpack_require__(768),
-            styles: [__webpack_require__(751)]
+            template: __webpack_require__(770),
+            styles: [__webpack_require__(752)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* FormBuilder */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* FormBuilder */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__api_service__["a" /* ApiService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__api_service__["a" /* ApiService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* Router */]) === 'function' && _c) || Object])
     ], RegisterComponent);
@@ -385,10 +538,70 @@ var RegisterComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_toastr_ng2_toastr__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_toastr_ng2_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_ng2_toastr_ng2_toastr__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_service__ = __webpack_require__(46);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SavedComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var SavedComponent = (function () {
+    function SavedComponent(api, vcr, toastr) {
+        this.api = api;
+        this.vcr = vcr;
+        this.toastr = toastr;
+        this.toastr.setRootViewContainerRef(vcr);
+    }
+    SavedComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.api.getSavedDrugs().subscribe(function (data) {
+            console.log(data);
+            _this.items = data;
+        });
+    };
+    SavedComponent.prototype.removeItem = function (item) {
+        var _this = this;
+        console.log(item);
+        this.api.removeSavedDrug(item).subscribe(function (result) {
+            _this.toastr.success('Item deleted successfully');
+            _this.items = result;
+        }, function (error) {
+            _this.toastr.error(error, 'No dice!');
+        });
+    };
+    SavedComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-saved',
+            template: __webpack_require__(771),
+            styles: [__webpack_require__(753)]
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__api_service__["a" /* ApiService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__api_service__["a" /* ApiService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ng2_toastr_ng2_toastr__["ToastsManager"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1_ng2_toastr_ng2_toastr__["ToastsManager"]) === 'function' && _c) || Object])
+    ], SavedComponent);
+    return SavedComponent;
+    var _a, _b, _c;
+}());
+//# sourceMappingURL=saved.component.js.map
+
+/***/ }),
+
+/***/ 464:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ng2_toastr_ng2_toastr__ = __webpack_require__(183);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ng2_toastr_ng2_toastr__ = __webpack_require__(125);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ng2_toastr_ng2_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_ng2_toastr_ng2_toastr__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__api_service__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__api_service__ = __webpack_require__(46);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UploadComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -443,8 +656,8 @@ var UploadComponent = (function () {
     UploadComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-upload',
-            template: __webpack_require__(769),
-            styles: [__webpack_require__(752)]
+            template: __webpack_require__(772),
+            styles: [__webpack_require__(754)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__api_service__["a" /* ApiService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__api_service__["a" /* ApiService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* FormBuilder */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* FormBuilder */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2_ng2_toastr_ng2_toastr__["ToastsManager"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2_ng2_toastr_ng2_toastr__["ToastsManager"]) === 'function' && _d) || Object])
     ], UploadComponent);
@@ -455,7 +668,7 @@ var UploadComponent = (function () {
 
 /***/ }),
 
-/***/ 514:
+/***/ 515:
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -464,20 +677,20 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 514;
+webpackEmptyContext.id = 515;
 
 
 /***/ }),
 
-/***/ 515:
+/***/ 516:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(658);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_module__ = __webpack_require__(690);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(691);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(659);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_module__ = __webpack_require__(691);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(692);
 
 
 
@@ -490,134 +703,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 
 /***/ }),
 
-/***/ 61:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(164);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(771);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch__ = __webpack_require__(294);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ApiService; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-var ApiService = (function () {
-    function ApiService(http) {
-        this.http = http;
-        this.BASE_URL = 'http://everyday.com.ng/drugs/';
-        // BASE_URL: string = 'http://localhost:8000/drugs/';
-        // BASE_URL: string = 'http://192.168.10.2:8000/drug/';
-        this.REGISTER_URL = this.BASE_URL + 'register/';
-        this.AUTH_URL = this.BASE_URL + 'auth/';
-        this.STOCK_URL = this.BASE_URL + 'getstock/';
-        this.PROFILE_URL = this.BASE_URL + 'profile/';
-        this.STATES_URL = this.BASE_URL + 'states/';
-        this.UPLOAD_URL = this.BASE_URL + 'addstock/';
-        this.SEARCH_URL = this.BASE_URL + 'search/';
-        this.REMOVE_URL = this.BASE_URL + 'remove/';
-        this.isLoggedIn = false;
-    }
-    ApiService.prototype.storeUser = function (profile) {
-        localStorage.setItem('drugs_auth', profile.email);
-        localStorage.setItem('drugs_profile', JSON.stringify(profile));
-    };
-    ApiService.prototype.getUser = function () {
-        return localStorage.getItem('drugs_auth');
-    };
-    ApiService.prototype.getProfile = function () {
-        return JSON.parse(localStorage.getItem('drugs_profile'));
-    };
-    ApiService.prototype.getStates = function () {
-        return this.http.get(this.STATES_URL)
-            .map(function (res) {
-            var data = res.json();
-            return data.states;
-        }).catch(function (error) {
-            return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || 'Server Error');
-        });
-    };
-    ApiService.prototype.getStock = function () {
-        var id = this.getProfile().id;
-        return this.http.get(this.STOCK_URL + id + "/")
-            .map(function (res) { return res.json().stock; })
-            .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || 'Server Error'); });
-    };
-    ApiService.prototype.searchDrugs = function (values) {
-        var params = "term=" + values.term + "&state=" + values.state;
-        return this.http.get(this.SEARCH_URL + "?" + params)
-            .map(function (res) { return res.json().stock; })
-            .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || 'Server Error'); });
-    };
-    ApiService.prototype.removeDrug = function (drug) {
-        return this.http.get(this.REMOVE_URL + drug.id + '/')
-            .map(function (res) { return res.json().stock; })
-            .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || 'Server Error'); });
-    };
-    ApiService.prototype.registerAccount = function (values) {
-        var data = "name=" + values.name + "&email=" + values.email + "&phone=" + values.phone + "&address=" + values.address + "&state=" + values.state + "&password=" + values.pwd1;
-        return this.doPost(this.REGISTER_URL, data)
-            .map(function (res) { return res.json(); })
-            .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || 'Server Error'); });
-    };
-    ApiService.prototype.authenticate = function (values) {
-        var _this = this;
-        var data = "username=" + values.email + "&password=" + values.password;
-        return this.doPost(this.AUTH_URL, data)
-            .map(function (res) {
-            console.log(res);
-            _this.isLoggedIn = true;
-            _this.storeUser(res.json().pharmacy);
-            return res.json();
-        })
-            .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || 'Server Error'); });
-    };
-    ApiService.prototype.uploadDrug = function (values) {
-        var id = this.getProfile().id;
-        var data = "brand_name=" + values.brand_name + "&generic_name=" + values.generic_name + "&manufacturer=" + values.manufacturer + "&batch_number=" + values.batch_number + "&expiry_date=" + values.expiry_date.formatted + "&quantity=" + values.quantity + "&pack_size=" + values.pack_size + "&unit_cost=" + values.unit_cost;
-        return this.doPost(this.UPLOAD_URL + id + "/", data)
-            .map(function (res) {
-            console.log(res);
-            return res.json();
-        })
-            .catch(function (error) { return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(error.json().error || 'Server Error'); });
-    };
-    ApiService.prototype.doPost = function (url, params) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        return this.http.post(url, params, { headers: headers });
-    };
-    ApiService.prototype.logout = function () {
-        this.isLoggedIn = false;
-        localStorage.clear();
-    };
-    ApiService = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */]) === 'function' && _a) || Object])
-    ], ApiService);
-    return ApiService;
-    var _a;
-}());
-//# sourceMappingURL=api.service.js.map
-
-/***/ }),
-
-/***/ 688:
+/***/ 689:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -626,9 +712,10 @@ var ApiService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__register_register_component__ = __webpack_require__(462);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__profile_profile_component__ = __webpack_require__(461);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_login_component__ = __webpack_require__(460);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__upload_upload_component__ = __webpack_require__(463);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__upload_upload_component__ = __webpack_require__(464);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__find_find_component__ = __webpack_require__(459);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__auth_guard_service__ = __webpack_require__(458);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__saved_saved_component__ = __webpack_require__(463);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppRoutingModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -639,6 +726,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -674,6 +762,11 @@ var appRoutes = [
     {
         path: 'find',
         component: __WEBPACK_IMPORTED_MODULE_6__find_find_component__["a" /* FindComponent */]
+    },
+    {
+        path: 'saved',
+        component: __WEBPACK_IMPORTED_MODULE_8__saved_saved_component__["a" /* SavedComponent */],
+        canActivate: [__WEBPACK_IMPORTED_MODULE_7__auth_guard_service__["a" /* AuthGuard */]]
     }
 ];
 var AppRoutingModule = (function () {
@@ -696,12 +789,12 @@ var AppRoutingModule = (function () {
 
 /***/ }),
 
-/***/ 689:
+/***/ 690:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__api_service__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__api_service__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(92);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -730,8 +823,8 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-root',
-            template: __webpack_require__(764),
-            styles: [__webpack_require__(747)]
+            template: __webpack_require__(766),
+            styles: [__webpack_require__(748)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__api_service__["a" /* ApiService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__api_service__["a" /* ApiService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === 'function' && _b) || Object])
     ], AppComponent);
@@ -742,31 +835,32 @@ var AppComponent = (function () {
 
 /***/ }),
 
-/***/ 690:
+/***/ 691:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_material__ = __webpack_require__(414);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(164);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_flex_layout__ = __webpack_require__(607);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_mydatepicker__ = __webpack_require__(760);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_flex_layout__ = __webpack_require__(608);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_mydatepicker__ = __webpack_require__(762);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_mydatepicker___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_mydatepicker__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(689);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_routing_module__ = __webpack_require__(688);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(690);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_routing_module__ = __webpack_require__(689);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__register_register_component__ = __webpack_require__(462);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__api_service__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__api_service__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__auth_guard_service__ = __webpack_require__(458);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__profile_profile_component__ = __webpack_require__(461);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__login_login_component__ = __webpack_require__(460);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_ng2_toastr_ng2_toastr__ = __webpack_require__(183);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_ng2_toastr_ng2_toastr__ = __webpack_require__(125);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_ng2_toastr_ng2_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_ng2_toastr_ng2_toastr__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_hammerjs__ = __webpack_require__(753);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_hammerjs__ = __webpack_require__(755);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_hammerjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_hammerjs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__upload_upload_component__ = __webpack_require__(463);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__upload_upload_component__ = __webpack_require__(464);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__find_find_component__ = __webpack_require__(459);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__saved_saved_component__ = __webpack_require__(463);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -777,6 +871,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -807,7 +902,8 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_12__profile_profile_component__["b" /* MyDialogRef */],
                 __WEBPACK_IMPORTED_MODULE_13__login_login_component__["a" /* LoginComponent */],
                 __WEBPACK_IMPORTED_MODULE_16__upload_upload_component__["a" /* UploadComponent */],
-                __WEBPACK_IMPORTED_MODULE_17__find_find_component__["a" /* FindComponent */]
+                __WEBPACK_IMPORTED_MODULE_17__find_find_component__["a" /* FindComponent */],
+                __WEBPACK_IMPORTED_MODULE_18__saved_saved_component__["a" /* SavedComponent */]
             ],
             entryComponents: [__WEBPACK_IMPORTED_MODULE_12__profile_profile_component__["b" /* MyDialogRef */]],
             imports: [
@@ -835,7 +931,7 @@ var AppModule = (function () {
 
 /***/ }),
 
-/***/ 691:
+/***/ 692:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -851,10 +947,10 @@ var environment = {
 
 /***/ }),
 
-/***/ 747:
+/***/ 748:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(43)();
+exports = module.exports = __webpack_require__(33)();
 // imports
 
 
@@ -869,10 +965,10 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 748:
+/***/ 749:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(43)();
+exports = module.exports = __webpack_require__(33)();
 // imports
 
 
@@ -887,10 +983,10 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 749:
+/***/ 750:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(43)();
+exports = module.exports = __webpack_require__(33)();
 // imports
 
 
@@ -905,10 +1001,10 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 750:
+/***/ 751:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(43)();
+exports = module.exports = __webpack_require__(33)();
 // imports
 
 
@@ -923,10 +1019,10 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 751:
+/***/ 752:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(43)();
+exports = module.exports = __webpack_require__(33)();
 // imports
 
 
@@ -941,10 +1037,28 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 752:
+/***/ 753:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(43)();
+exports = module.exports = __webpack_require__(33)();
+// imports
+
+
+// module
+exports.push([module.i, "table {\n    border-collapse: collapse;\n}\n\ntable, th, td {\n   /*border: 1px solid black;*/\n}\n\ntable {\n    width: 100%;\n}\n\n\nth {\n    text-align: left;\n}\ntd {\n    /*height: 50px;*/\n    vertical-align: bottom;\n}\nth, td {\n    padding: 15px;\n    text-align: left;\n}\ntr:hover {background-color: #f5f5f5}\ntr:nth-child(even) {background-color: #f2f2f2}\nth {\n    background-color: #4CAF50;\n    color: white;\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ 754:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(33)();
 // imports
 
 
@@ -959,47 +1073,54 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 764:
-/***/ (function(module, exports) {
-
-module.exports = "<!--\n\n<md-sidenav-container fullscreen>\n  <md-sidenav #sidenav mode=\"side\" opened=\"true\" color=\"secondary\">\n    <md-toolbar color=\"primary\">\n  <span>{{title}}</span>\n  <span class=\"spacer\"></span>\n  <!--button md-icon-button [mdMenuTriggerFor]=\"menu\"-->\n  <!--button md-icon-button>\n    <md-icon>more_vert</md-icon>\n  </button-->\n\n  <!--md-menu #menu=\"mdMenu\">\n  <a routerLink=\"/profile\" md-menu-item>\n    <md-icon>person</md-icon>\n    <span>Profile</span>\n  </a>\n  <button md-menu-item>\n    <md-icon>search</md-icon>\n    <span> Find Drugs</span>\n  </button>\n  <a routerLink=\"/upload\" md-menu-item>\n    <md-icon>file_upload</md-icon>\n     <span>Upload Drugs</span>\n  </a>\n  <a routerLink=\"/login\" md-menu-item>\n    <md-icon>exit_to_app</md-icon>\n     <span>Logout</span>\n  </a>\n</md-menu-->\n\n<!--\n</md-toolbar>\n\n<md-nav-list>\n  <div md-list-item color=\"secondary\">\n    <p>Welcome</p>\n  </div>\n      <a md-list-item routerLink=\"/profile\" class=\"md-icon-button\">\n        <md-icon>person</md-icon>\n        <span>Profile</span>\n      </a>\n      <a md-list-item routerLink=\"/find\">\n        <md-icon>search</md-icon>\n        <span> Find Drugs</span>\n      </a>\n      <a md-list-item routerLink=\"/upload\">\n        <md-icon>file_upload</md-icon>\n        <span>Upload Drugs</span>\n      </a>\n      <a md-list-item routerLink=\"/login\">\n        <md-icon>exit_to_app</md-icon>\n        <span>Logout</span>\n      </a>\n    </md-nav-list>\n</md-sidenav>\n<div class=\"main-content\">\n  <router-outlet></router-outlet>\n</div>\n</md-sidenav-container>\n-->\n\n <div class=\"containerX\">\n    <div class=\"colorNested box\">\n      <header>\n         <md-toolbar color=\"primary\">\n          <span>{{title}}</span>\n         </md-toolbar>\n      </header>\n      <div id=\"main\" [fxLayout]=\"row\" fxLayout.xs=\"column\" fxFlex>\n        <nav fxFlex=\"1 6 20%\" fxFlexOrder fxFlexOrder.xs=\"2\">\n          <md-nav-list>\n            <div md-list-item color=\"secondary\">\n              <p>Welcome</p>\n            </div>\n            <a md-list-item routerLink=\"/profile\" class=\"md-icon-button\">\n              <md-icon>person</md-icon>\n              <span>Profile</span>\n            </a>\n            <a md-list-item routerLink=\"/find\">\n              <md-icon>search</md-icon>\n              <span> Find Drugs</span>\n            </a>\n            <a md-list-item routerLink=\"/upload\">\n              <md-icon>file_upload</md-icon>\n              <span>Upload Drugs</span>\n            </a>\n            <a md-list-item routerLink=\"/login\">\n              <md-icon>exit_to_app</md-icon>\n              <span>Logout</span>\n            </a>\n          </md-nav-list>\n        </nav>\n        <article fxFlex=\"3 1 80%\" fxFlexOrder fxFlexOrder.xs=\"1\"> \n          <router-outlet></router-outlet>\n        </article>\n      </div>\n      <footer>&copy; 2017 Curbs Healthcare</footer>\n    </div>\n</div>"
-
-/***/ }),
-
-/***/ 765:
-/***/ (function(module, exports) {
-
-module.exports = "<md-card>\n  <md-card-title>Find Drug</md-card-title>  \n  <md-card-content>\n    <form [formGroup]=\"findForm\">\n    <div [fxLayout]=\"row\" fxLayout.xs=\"column\" fxFlex fxLayoutAlign=\"space-between end\" fxLayoutGap=\"15px\">\n       <md-input-container fxFlexAlign=\"start\" fxFlex=\"1 1 40%\" fxFlexOrder fxFlexOrder.xs=\"1\">\n          <input mdInput type=\"text\" formControlName=\"term\" placeholder=\"Search\"/>\n       </md-input-container>\n        <md-input-container fxFlexAlign=\"start\" fxFlex=\"1 1 40%\" fxFlexOrder fxFlexOrder.xs=\"1\">\n          <input mdInput type=\"text\" formControlName=\"state\" placeholder=\"Location (optional)\" [mdAutocomplete]=\"auto\" (keyup)=\"textChanged()\"/>\n       </md-input-container>\n        <md-autocomplete #auto=\"mdAutocomplete\" fxFlexAlign=\"start\" fxFlex=\"1 1 25%\" fxFlexOrder fxFlexOrder.xs=\"2\">\n          <md-option *ngFor=\"let fstate of filteredStates\" [value]=\"fstate\">\n            {{fstate}}\n          </md-option>\n        </md-autocomplete>\n        \n        <button fxFlex=\"1 1 20%\" fxFlexAlign=\"start\" fxFlexOrder fxFlexOrder.xs=\"3\" class=\"button\" md-raised-button color=\"primary\" (click)=\"findDrugs()\" [disabled]=\"!findForm.valid\">\n          Search\n        </button>\n    </div>\n    </form>\n  </md-card-content>\n</md-card>\n<md-card>\n  <div [hidden]=\"!stockList || stockList.length == 0\" style=\"overflow-x: auto;\">\n     <table class=\"full\">\n         <thead>\n           <tr>\n             <th>Brand Name</th>\n             <th>Generic Name</th>\n             <th>Available</th>\n             <th>Unit Cost</th>\n             <th>Expiry Date</th>\n             <th>Pharmacy</th>\n           </tr>\n         </thead>\n         <tbody>\n           <tr *ngFor=\"let stock of stockList\">\n             <td>{{stock.brand_name}}</td>\n             <td>{{stock.generic_name}}</td>\n             <td>{{stock.pack_size}}pcs x {{ stock.quantity }}</td>\n             <td>{{stock.unit_cost}}</td>\n             <td>{{stock.expiry_date}}</td>\n             <td>{{stock.pharmacy}} ({{stock.state}})</td>\n           </tr>\n         </tbody>\n       </table>\n  </div>\n</md-card>"
-
-/***/ }),
-
 /***/ 766:
 /***/ (function(module, exports) {
 
-module.exports = "<md-card class=\"reg-card\">\n  <h1>Login</h1>      \n  <p>\n      <md-hint *ngIf=\"errorMsg\" [ngStyle]=\"{'color': 'red'}\">{{errorMsg}}</md-hint>        \n  </p>\n  <form [formGroup]=\"loginForm\">\n      <div class=\"semi-full\">\n        <md-input-container class=\"full\">\n        <input mdInput type=\"email\" placeholder=\"Email\" formControlName=\"email\" />\n        </md-input-container>\n      </div>\n\n      <div class=\"semi-full\">\n        <md-input-container class=\"full\">\n          <!--<label for=\"subtext\">Password</label>-->\n          <input mdInput type=\"password\" placeholder=\"Password\" formControlName=\"password\" />\n        </md-input-container>\n      </div>\n\n      <div>\n      <button class=\"button\" md-raised-button color=\"primary\" (click)=\"login()\" [disabled]=\"!loginForm.valid\">Login</button>                    \n      </div>\n      <div> You don't have an account? \n      <a routerLink=\"/register\" md-button color=\"accent\">Register</a>\n      </div>\n</form>\n</md-card>"
+module.exports = "<!--\n\n<md-sidenav-container fullscreen>\n  <md-sidenav #sidenav mode=\"side\" opened=\"true\" color=\"secondary\">\n    <md-toolbar color=\"primary\">\n  <span>{{title}}</span>\n  <span class=\"spacer\"></span>\n  <!--button md-icon-button [mdMenuTriggerFor]=\"menu\"-->\n  <!--button md-icon-button>\n    <md-icon>more_vert</md-icon>\n  </button-->\n\n  <!--md-menu #menu=\"mdMenu\">\n  <a routerLink=\"/profile\" md-menu-item>\n    <md-icon>person</md-icon>\n    <span>Profile</span>\n  </a>\n  <button md-menu-item>\n    <md-icon>search</md-icon>\n    <span> Find Drugs</span>\n  </button>\n  <a routerLink=\"/upload\" md-menu-item>\n    <md-icon>file_upload</md-icon>\n     <span>Upload Drugs</span>\n  </a>\n  <a routerLink=\"/login\" md-menu-item>\n    <md-icon>exit_to_app</md-icon>\n     <span>Logout</span>\n  </a>\n</md-menu-->\n\n<!--\n</md-toolbar>\n\n<md-nav-list>\n  <div md-list-item color=\"secondary\">\n    <p>Welcome</p>\n  </div>\n      <a md-list-item routerLink=\"/profile\" class=\"md-icon-button\">\n        <md-icon>person</md-icon>\n        <span>Profile</span>\n      </a>\n      <a md-list-item routerLink=\"/find\">\n        <md-icon>search</md-icon>\n        <span> Find Drugs</span>\n      </a>\n      <a md-list-item routerLink=\"/upload\">\n        <md-icon>file_upload</md-icon>\n        <span>Upload Drugs</span>\n      </a>\n      <a md-list-item routerLink=\"/login\">\n        <md-icon>exit_to_app</md-icon>\n        <span>Logout</span>\n      </a>\n    </md-nav-list>\n</md-sidenav>\n<div class=\"main-content\">\n  <router-outlet></router-outlet>\n</div>\n</md-sidenav-container>\n-->\n\n <div class=\"containerX\">\n    <div class=\"colorNested box\">\n      <header>\n         <md-toolbar color=\"primary\">\n          <span>{{title}}</span>\n         </md-toolbar>\n      </header>\n      <div id=\"main\" [fxLayout]=\"row\" fxLayout.xs=\"column\" fxFlex>\n        <nav fxFlex=\"1 6 20%\" fxFlexOrder fxFlexOrder.xs=\"2\">\n          <md-nav-list>\n            <div md-list-item color=\"secondary\">\n              <p>Welcome</p>\n            </div>\n            <a md-list-item routerLink=\"/profile\" class=\"md-icon-button\">\n              <md-icon>person</md-icon>\n              <span>Profile</span>\n            </a>\n            <a md-list-item routerLink=\"/find\">\n              <md-icon>search</md-icon>\n              <span> Find Drugs</span>\n            </a>\n            <a md-list-item routerLink=\"/upload\">\n              <md-icon>file_upload</md-icon>\n              <span>Upload Drugs</span>\n            </a>\n            <a md-list-item routerLink=\"/saved\">\n              <md-icon>save</md-icon>\n              <span>Saved Drugs</span>\n            </a>\n            <a md-list-item routerLink=\"/login\">\n              <md-icon>exit_to_app</md-icon>\n              <span>Logout</span>\n            </a>\n          </md-nav-list>\n        </nav>\n        <article fxFlex=\"3 1 80%\" fxFlexOrder fxFlexOrder.xs=\"1\"> \n          <router-outlet></router-outlet>\n        </article>\n      </div>\n      <footer>&copy; 2017 Curbs Healthcare</footer>\n    </div>\n</div>"
 
 /***/ }),
 
 /***/ 767:
 /***/ (function(module, exports) {
 
-module.exports = "<div [hidden]=\"!showBusy\">\n <md-progress-spinner class=\"spinner\" style=\"margin:0 auto;\" mode=\"indeterminate\"></md-progress-spinner>\n</div>\n <div [fxLayout]=\"column\" fxLayout.xs=\"column\" fxFlex fxLayoutAlign=\"space-between start\" fxLayoutAlign.xs=\"start space-between\" fxLayoutGap=\"15px\">\n   <div fxFlex=\"1 1 30%\" fxFlexOrder=\"1\" fxFlexOrder.xs=\"1\">\n     <md-card>\n      <md-card-title>{{pharmacy.name}}</md-card-title>\n      <md-card-content>\n         <div [fxLayout]=\"column\" fxLayout.xs=\"column\" fxFlex>\n          <span fxFlex=\"20%\" fxFlexOrder=\"1\">\n            <i class=\"material-icons\">phone</i>\n          </span>\n          <span fxFlex=\"80%\" fxFlexOrder=\"2\">{{pharmacy.phone}}</span>\n        </div>\n        <div [fxLayout]=\"column\" fxLayout.xs=\"column\" fxFlex>\n          <span fxFlex=\"20%\" fxFlexOrder=\"1\">\n            <i class=\"material-icons\">my_location</i>\n          </span>\n          <span fxFlex=\"80%\" fxFlexOrder=\"2\">{{pharmacy.address}}</span>\n        </div>\n        <div [fxLayout]=\"column\" fxLayout.xs=\"column\" fxFlex>\n          <span fxFlex=\"20%\" fxFlexOrder=\"1\">\n          </span>\n          <span fxFlex=\"80%\" fxFlexOrder=\"2\">{{pharmacy.state}}</span>\n        </div>\n          <div [fxLayout]=\"column\" fxLayout.xs=\"column\" fxFlex>\n          <span fxFlex=\"20%\" fxFlexOrder=\"1\">\n            <i class=\"material-icons\">location_on</i>\n          </span>\n          <span fxFlex=\"80%\" fxFlexOrder=\"2\">{{pharmacy.latitude}}, {{pharmacy.longitude}}</span>\n        </div>\n      \n      </md-card-content>\n    </md-card>\n   </div>\n   <md-card fxFlex=\"1 2 70%\" fxFlexOrder=\"2\" fxFlexOrder.xs=\"2\">\n     <md-card-content>\n       <div style=\"overflow-x: auto;\">\n          <table>\n            <caption><h3>Stock List</h3></caption>\n            <thead>\n              <tr>\n                <th>Brand Name</th>\n                <th>Quantity</th>\n                <th>Unit Cost</th>\n                <th>Expiry Date</th>\n                <th>Edit</th>\n                <th>Remove</th>\n              </tr>\n            </thead>\n            <tbody>\n              <tr *ngFor=\"let stock of stockList\">\n                <td>{{stock.brand_name}}</td>\n                <td>{{stock.pack_size}} x {{stock.quantity}}</td>\n                <td>{{stock.unit_cost}}</td>\n                <td>{{stock.expiry_date}}</td>\n                <td>\n                  <a md-button>\n                    <i class=\"material-icons\">mode_edit</i>\n                    edit\n                  </a>\n                </td>\n                <td>\n                  <button md-button color=\"warn\" (click)=\"removeDrug(stock)\">\n                    <i class=\"material-icons\">cancel</i>\n                    remove\n                  </button>\n                </td>\n              </tr>\n            </tbody>\n          </table>\n       </div>\n     </md-card-content>\n   </md-card>\n </div>"
+module.exports = "<md-card>\n  <md-card-title>Find Drug</md-card-title>  \n  <md-card-content>\n    <form [formGroup]=\"findForm\">\n    <div [fxLayout]=\"row\" fxLayout.xs=\"column\" fxFlex fxLayoutAlign=\"space-between end\" fxLayoutGap=\"15px\">\n       <md-input-container fxFlexAlign=\"start\" fxFlex=\"1 1 40%\" fxFlexOrder fxFlexOrder.xs=\"1\">\n          <input mdInput type=\"text\" formControlName=\"term\" placeholder=\"Search\"/>\n       </md-input-container>\n        <md-input-container fxFlexAlign=\"start\" fxFlex=\"1 1 40%\" fxFlexOrder fxFlexOrder.xs=\"1\">\n          <input mdInput type=\"text\" formControlName=\"state\" placeholder=\"Location (optional)\" [mdAutocomplete]=\"auto\" (keyup)=\"textChanged()\"/>\n       </md-input-container>\n        <md-autocomplete #auto=\"mdAutocomplete\" fxFlexAlign=\"start\" fxFlex=\"1 1 25%\" fxFlexOrder fxFlexOrder.xs=\"2\">\n          <md-option *ngFor=\"let fstate of filteredStates\" [value]=\"fstate\">\n            {{fstate}}\n          </md-option>\n        </md-autocomplete>\n        \n        <button fxFlex=\"1 1 20%\" fxFlexAlign=\"start\" fxFlexOrder fxFlexOrder.xs=\"3\" class=\"button\" md-raised-button color=\"primary\" (click)=\"findDrugs()\" [disabled]=\"!findForm.valid\">\n          Search\n        </button>\n    </div>\n    </form>\n  </md-card-content>\n</md-card>\n<md-card>\n  <div [hidden]=\"!stockList || stockList.length == 0\" style=\"overflow-x: auto;\">\n     <table class=\"full\">\n         <thead>\n           <tr>\n             <th>Brand Name</th>\n             <th>Generic Name</th>\n             <th>Available</th>\n             <th>Unit Cost</th>\n             <th>Expiry Date</th>\n             <th>Pharmacy</th>\n             <th>Save</th>\n           </tr>\n         </thead>\n         <tbody>\n           <tr *ngFor=\"let stock of stockList\">\n             <td>{{stock.brand_name}}</td>\n             <td>{{stock.generic_name}}</td>\n             <td>{{stock.pack_size}}pcs x {{ stock.quantity }}</td>\n             <td>{{stock.unit_cost}}</td>\n             <td>{{stock.expiry_date}}</td>\n             <td>{{stock.pharmacy}} ({{stock.state}})</td>\n             <td>\n               <button md-button (click)=\"saveStock(stock)\">\n                 <i class=\"material-icons\">save</i>\n                 Save\n               </button>\n             </td>\n           </tr>\n         </tbody>\n       </table>\n  </div>\n</md-card>"
 
 /***/ }),
 
 /***/ 768:
 /***/ (function(module, exports) {
 
-module.exports = "    <md-card class=\"reg-card\">\n      <h1>Register your Pharmacy</h1>\n      <p>\n          <md-hint *ngIf=\"errorMsg\" [ngStyle]=\"{'color': 'red'}\">{{errorMsg}}</md-hint>        \n      </p>\n      <form [formGroup]=\"registerForm\">\n        <div class=\"semi-full\">\n          <md-input-container class=\"semi-full\">\n              <!--<label for=\"main_text\">Name of Pharmacy</label>-->\n            <input mdInput type=\"text\" md-maxlength=\"200\" formControlName=\"name\" placeholder=\"Pharmacy Name\" />\n          </md-input-container>\n        </div>\n         <div class=\"semi-full\">\n            <md-input-container class=\"semi-full\">\n              <input mdInput type=\"tel\" formControlName=\"phone\" placeholder=\"Phone Number\" />\n            </md-input-container>\n        </div>\n        <div class=\"semi-full\">\n            <md-input-container class=\"semi-full\">\n              <input mdInput type=\"email\" class=\"form-control\" formControlName=\"email\" placeholder=\"Email\" />\n            </md-input-container>\n        </div>\n       \n\n        <div class=\"semi-full\">\n           <table class=\"full\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n            <tr>\n              <td>\n                <md-input-container class=\"semi-full\">\n                  <input mdInput type=\"password\" formControlName=\"pwd1\" placeholder=\"Password\" />\n                </md-input-container>\n              </td>\n              <td>\n                <md-input-container class=\"semi-full\">\n                <input mdInput type=\"password\" formControlName=\"pwd2\" placeholder=\"Verify Password\" />\n                <md-hint *ngIf=\"passwordError\" [ngStyle]=\"{'color': 'red'}\">The passwords are not the same</md-hint>\n                </md-input-container>\n              </td>\n            </tr>\n          \n          </table>\n        </div>\n        \n        <div class=\"semi-full\">\n          \n        </div>\n\n        <div class=\"semi-full\">\n          <md-input-container class=\"semi-full\">\n            <textarea mdInput formControlName=\"address\" placeholder=\"Address\"></textarea>\n          </md-input-container>\n        </div>\n\n        <div class=\"semi-full\">\n            <md-select placeholder=\"State\" formControlName=\"state\" class=\"semi-full\">\n              <md-option *ngFor=\"let state of states\" [value]=\"state.id\">{{state.name}}</md-option>\n            </md-select>\n        </div>\n\n        \n\n        <div>\n          <button class=\"button\" md-raised-button color=\"primary\" (click)=\"register()\" [disabled]=\"!registerForm.valid\">Register</button>\n        </div>\n        <div> Already have an account?\n          <a routerLink=\"/login\" md-button color=\"accent\">Login</a>\n        </div>\n      </form>\n    </md-card>\n "
+module.exports = "<md-card class=\"reg-card\">\n  <h1>Login</h1>      \n  <p>\n      <md-hint *ngIf=\"errorMsg\" [ngStyle]=\"{'color': 'red'}\">{{errorMsg}}</md-hint>        \n  </p>\n  <form [formGroup]=\"loginForm\">\n      <div class=\"semi-full\">\n        <md-input-container class=\"full\">\n        <input mdInput type=\"email\" placeholder=\"Email\" formControlName=\"email\" />\n        </md-input-container>\n      </div>\n\n      <div class=\"semi-full\">\n        <md-input-container class=\"full\">\n          <!--<label for=\"subtext\">Password</label>-->\n          <input mdInput type=\"password\" placeholder=\"Password\" formControlName=\"password\" />\n        </md-input-container>\n      </div>\n\n      <div>\n      <button class=\"button\" md-raised-button color=\"primary\" (click)=\"login()\" [disabled]=\"!loginForm.valid\">Login</button>                    \n      </div>\n      <div> You don't have an account? \n      <a routerLink=\"/register\" md-button color=\"accent\">Register</a>\n      </div>\n</form>\n</md-card>"
 
 /***/ }),
 
 /***/ 769:
 /***/ (function(module, exports) {
 
+module.exports = "<div [hidden]=\"!showBusy\">\n <md-progress-spinner class=\"spinner\" style=\"margin:0 auto;\" mode=\"indeterminate\"></md-progress-spinner>\n</div>\n <div [fxLayout]=\"column\" fxLayout.xs=\"column\" fxFlex fxLayoutAlign=\"space-between start\" fxLayoutAlign.xs=\"start space-between\" fxLayoutGap=\"15px\">\n   <div fxFlex=\"1 1 30%\" fxFlexOrder=\"1\" fxFlexOrder.xs=\"1\">\n     <md-card>\n      <md-card-title>{{pharmacy.name}}</md-card-title>\n      <md-card-content>\n         <div [fxLayout]=\"column\" fxLayout.xs=\"column\" fxFlex>\n          <span fxFlex=\"20%\" fxFlexOrder=\"1\">\n            <i class=\"material-icons\">phone</i>\n          </span>\n          <span fxFlex=\"80%\" fxFlexOrder=\"2\">{{pharmacy.phone}}</span>\n        </div>\n        <div [fxLayout]=\"column\" fxLayout.xs=\"column\" fxFlex>\n          <span fxFlex=\"20%\" fxFlexOrder=\"1\">\n            <i class=\"material-icons\">my_location</i>\n          </span>\n          <span fxFlex=\"80%\" fxFlexOrder=\"2\">{{pharmacy.address}}</span>\n        </div>\n        <div [fxLayout]=\"column\" fxLayout.xs=\"column\" fxFlex>\n          <span fxFlex=\"20%\" fxFlexOrder=\"1\">\n          </span>\n          <span fxFlex=\"80%\" fxFlexOrder=\"2\">{{pharmacy.state}}</span>\n        </div>\n          <div [fxLayout]=\"column\" fxLayout.xs=\"column\" fxFlex>\n          <span fxFlex=\"20%\" fxFlexOrder=\"1\">\n            <i class=\"material-icons\">location_on</i>\n          </span>\n          <span fxFlex=\"80%\" fxFlexOrder=\"2\">{{pharmacy.latitude}}, {{pharmacy.longitude}}</span>\n        </div>\n      \n      </md-card-content>\n    </md-card>\n   </div>\n   <md-card fxFlex=\"1 2 70%\" fxFlexOrder=\"2\" fxFlexOrder.xs=\"2\">\n     <md-card-content>\n       <div style=\"overflow-x: auto;\">\n          <table>\n            <caption><h3>Stock List</h3></caption>\n            <thead>\n              <tr>\n                <th>Brand Name</th>\n                <th>Quantity</th>\n                <th>Unit Cost</th>\n                <th>Expiry Date</th>\n                <th>Edit</th>\n                <th>Remove</th>\n              </tr>\n            </thead>\n            <tbody>\n              <tr *ngFor=\"let stock of stockList\">\n                <td>{{stock.brand_name}}</td>\n                <td>{{stock.pack_size}} x {{stock.quantity}}</td>\n                <td>{{stock.unit_cost}}</td>\n                <td>{{stock.expiry_date}}</td>\n                <td>\n                  <a md-button>\n                    <i class=\"material-icons\">mode_edit</i>\n                    edit\n                  </a>\n                </td>\n                <td>\n                  <button md-button color=\"warn\" (click)=\"removeDrug(stock)\">\n                    <i class=\"material-icons\">cancel</i>\n                    remove\n                  </button>\n                </td>\n              </tr>\n            </tbody>\n          </table>\n       </div>\n     </md-card-content>\n   </md-card>\n </div>"
+
+/***/ }),
+
+/***/ 770:
+/***/ (function(module, exports) {
+
+module.exports = "    <md-card class=\"reg-card\">\n      <h1>Register your Pharmacy</h1>\n      <p>\n          <md-hint *ngIf=\"errorMsg\" [ngStyle]=\"{'color': 'red'}\">{{errorMsg}}</md-hint>        \n      </p>\n      <form [formGroup]=\"registerForm\">\n        <div class=\"semi-full\">\n          <md-input-container class=\"semi-full\">\n              <!--<label for=\"main_text\">Name of Pharmacy</label>-->\n            <input mdInput type=\"text\" md-maxlength=\"200\" formControlName=\"name\" placeholder=\"Pharmacy Name\" />\n          </md-input-container>\n        </div>\n         <div class=\"semi-full\">\n            <md-input-container class=\"semi-full\">\n              <input mdInput type=\"tel\" formControlName=\"phone\" placeholder=\"Phone Number\" />\n            </md-input-container>\n        </div>\n        <div class=\"semi-full\">\n            <md-input-container class=\"semi-full\">\n              <input mdInput type=\"email\" class=\"form-control\" formControlName=\"email\" placeholder=\"Email\" />\n            </md-input-container>\n        </div>\n       \n\n        <div class=\"semi-full\">\n           <table class=\"full\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n            <tr>\n              <td>\n                <md-input-container class=\"semi-full\">\n                  <input mdInput type=\"password\" formControlName=\"pwd1\" placeholder=\"Password\" />\n                </md-input-container>\n              </td>\n              <td>\n                <md-input-container class=\"semi-full\">\n                <input mdInput type=\"password\" formControlName=\"pwd2\" placeholder=\"Verify Password\" />\n                <md-hint *ngIf=\"passwordError\" [ngStyle]=\"{'color': 'red'}\">The passwords are not the same</md-hint>\n                </md-input-container>\n              </td>\n            </tr>\n          \n          </table>\n        </div>\n        \n        <div class=\"semi-full\">\n          \n        </div>\n\n        <div class=\"semi-full\">\n          <md-input-container class=\"semi-full\">\n            <textarea mdInput formControlName=\"address\" placeholder=\"Address\"></textarea>\n          </md-input-container>\n        </div>\n\n        <div class=\"semi-full\">\n            <md-select placeholder=\"State\" formControlName=\"state\" class=\"semi-full\">\n              <md-option *ngFor=\"let state of states\" [value]=\"state.id\">{{state.name}}</md-option>\n            </md-select>\n        </div>\n\n        \n\n        <div>\n          <button class=\"button\" md-raised-button color=\"primary\" (click)=\"register()\" [disabled]=\"!registerForm.valid\">Register</button>\n        </div>\n        <div> Already have an account?\n          <a routerLink=\"/login\" md-button color=\"accent\">Login</a>\n        </div>\n      </form>\n    </md-card>\n "
+
+/***/ }),
+
+/***/ 771:
+/***/ (function(module, exports) {
+
+module.exports = "<md-card>\n  <div style=\"overflow-x: auto;\">\n     <table class=\"full\">\n         <thead>\n           <tr>\n             <th>Brand Name</th>\n             <th>Generic Name</th>\n             <th>Available</th>\n             <th>Unit Cost</th>\n             <th>Expiry Date</th>\n             <th>Pharmacy</th>\n             <th>Delete</th>\n           </tr>\n         </thead>\n         <tbody>\n           <tr *ngFor=\"let stock of items\">\n             <td>{{stock.brand_name}}</td>\n             <td>{{stock.generic_name}}</td>\n             <td>{{stock.pack_size}}pcs x {{ stock.quantity }}</td>\n             <td>{{stock.unit_cost}}</td>\n             <td>{{stock.expiry_date}}</td>\n             <td>{{stock.pharmacy}} ({{stock.state}})</td>\n             <td>\n               <button md-button (click)=\"removeItem(stock)\">\n                 <i class=\"material-icons\">cancel</i>\n                 delete\n               </button>\n             </td>\n           </tr>\n         </tbody>\n       </table>\n  </div>\n</md-card>"
+
+/***/ }),
+
+/***/ 772:
+/***/ (function(module, exports) {
+
 module.exports = "  <md-card class=\"reg-card\">\n      <h1>Upload Drugs</h1>\n      <p>\n          <md-hint *ngIf=\"errorMsg\" [ngStyle]=\"{'color': 'red'}\">{{errorMsg}}</md-hint>        \n      </p>\n      <form [formGroup]=\"uploadForm\">\n        <div class=\"semi-full\">\n          <md-input-container class=\"semi-full\">\n              <!--<label for=\"main_text\">Name of Pharmacy</label>-->\n            <input mdInput type=\"text\" formControlName=\"generic_name\" placeholder=\"Generic Name\" />\n          </md-input-container>\n        </div>\n         <div class=\"semi-full\">\n            <md-input-container class=\"semi-full\">\n              <input mdInput type=\"text\" formControlName=\"brand_name\" placeholder=\"Brand Name\" />\n            </md-input-container>\n        </div>\n\n        <div class=\"semi-full\">\n           <table class=\"full\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n            <tr>\n              <td>\n               <md-input-container class=\"semi-full\">\n                  <input mdInput type=\"text\" formControlName=\"manufacturer\" placeholder=\"Manufacturer\" />\n                </md-input-container>\n              </td>\n               <td>\n                 <md-input-container class=\"semi-full\">\n                <input mdInput type=\"text\" formControlName=\"batch_number\" placeholder=\"Batch Number\" />\n                </md-input-container>\n              </td>\n            </tr>\n          </table>\n        </div>\n\n        \n         <div class=\"semi-full\">\n            <md-input-container class=\"half\">\n              <input mdInput type=\"number\" formControlName=\"quantity\" placeholder=\"Quantity Available\" />\n            </md-input-container>\n        </div>\n        \n         <div class=\"semi-full\">\n           <table class=\"full\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n            <tr>\n              <td>\n                <md-input-container class=\"semi-full\">\n                <input mdInput type=\"number\" formControlName=\"pack_size\" placeholder=\"Pack Size\" />\n                </md-input-container>\n              </td>\n               <td>\n                <md-input-container class=\"semi-full\">\n                  <input mdInput type=\"number\" formControlName=\"unit_cost\" placeholder=\"Cost per pack\" />\n                </md-input-container>\n              </td>\n            </tr>\n          </table>\n        </div>\n\n        <div class=\"semi-full\">\n          <div class=\"semi-full\">\n            <my-date-picker required formControlName=\"expiry_date\" [options]=\"MyDatePickerOptions\" placeholder=\"Expiry Date\"></my-date-picker>\n          </div>\n        </div>\n\n        <div>\n          <button class=\"button\" md-raised-button color=\"primary\" (click)=\"save()\" [disabled]=\"!uploadForm.valid\">Save</button>\n        </div>\n      </form>\n    </md-card>"
 
 /***/ })
 
-},[1023]);
+},[1026]);
 //# sourceMappingURL=main.bundle.js.map

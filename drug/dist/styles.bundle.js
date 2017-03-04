@@ -1,15 +1,15 @@
 webpackJsonp([2,5],{
 
-/***/ 1025:
+/***/ 1028:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(518);
-module.exports = __webpack_require__(517);
+__webpack_require__(519);
+module.exports = __webpack_require__(518);
 
 
 /***/ }),
 
-/***/ 43:
+/***/ 33:
 /***/ (function(module, exports) {
 
 /*
@@ -66,7 +66,7 @@ module.exports = function() {
 
 /***/ }),
 
-/***/ 513:
+/***/ 514:
 /***/ (function(module, exports) {
 
 /*
@@ -319,16 +319,16 @@ function updateLink(linkElement, obj) {
 
 /***/ }),
 
-/***/ 517:
+/***/ 518:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(745);
+var content = __webpack_require__(746);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(513)(content, {});
+var update = __webpack_require__(514)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -346,16 +346,16 @@ if(false) {
 
 /***/ }),
 
-/***/ 518:
+/***/ 519:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(746);
+var content = __webpack_require__(747);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(513)(content, {});
+var update = __webpack_require__(514)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -373,10 +373,10 @@ if(false) {
 
 /***/ }),
 
-/***/ 744:
+/***/ 745:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(43)();
+exports = module.exports = __webpack_require__(33)();
 // imports
 
 
@@ -388,10 +388,10 @@ exports.push([module.i, ".mat-elevation-z0{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0
 
 /***/ }),
 
-/***/ 745:
+/***/ 746:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(43)();
+exports = module.exports = __webpack_require__(33)();
 // imports
 
 
@@ -403,12 +403,12 @@ exports.push([module.i, ".toast-title{font-weight:700}.toast-message{word-wrap:b
 
 /***/ }),
 
-/***/ 746:
+/***/ 747:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(43)();
+exports = module.exports = __webpack_require__(33)();
 // imports
-exports.i(__webpack_require__(744), "");
+exports.i(__webpack_require__(745), "");
 
 // module
 exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n.spacer {\n    -webkit-box-flex: 1;\n    -ms-flex: 1 1 auto;\n    flex: 1 1 auto;\n}\n\nbody {\n  margin: 0;\n  font-family: Roboto, sans-serif;\n}\n\nmd-card {\n  max-width: 80%;\n  margin: 2em auto;\n  /*text-align: center;*/\n}\n\nmd-toolbar-row {\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.done {\n  position: fixed;\n  bottom: 20px;\n  right: 20px;\n  color: white;\n}", ""]);
@@ -418,5 +418,5 @@ exports.push([module.i, "/* You can add global styles to this file, and also imp
 
 /***/ })
 
-},[1025]);
+},[1028]);
 //# sourceMappingURL=styles.bundle.js.map
