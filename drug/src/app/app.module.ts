@@ -17,6 +17,7 @@ import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import 'hammerjs';
 import { UploadComponent } from './upload/upload.component';
 import { FindComponent } from './find/find.component';
+import { SavedComponent } from './saved/saved.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { FindComponent } from './find/find.component';
     MyDialogRef,
     LoginComponent,
     UploadComponent,
-    FindComponent
+    FindComponent,
+    SavedComponent
   ],
   entryComponents: [MyDialogRef],
   imports: [

@@ -19,6 +19,9 @@ export class ApiService {
   UPLOAD_URL: string = this.BASE_URL + 'addstock/';
   SEARCH_URL: string = this.BASE_URL + 'search/';
   REMOVE_URL: string = this.BASE_URL + 'remove/';
+  SAVEDRUG_URL: string = this.BASE_URL + 'savedrug/';
+  REMOVESAVEDDRUG_URL: string = this.BASE_URL + 'removesaveddrug/';
+  SAVEDDRUGS_URL: string = this.BASE_URL + 'getsaveddrugs/';
   isLoggedIn = false;
   constructor(
     private http: Http) { }
@@ -63,6 +66,29 @@ export class ApiService {
     return this.http.get(this.REMOVE_URL + drug.id + '/')
       .map((res: Response) => res.json().stock)
       .catch((error: any) => Observable.throw(error.json().error || 'Server Error'));      
+  }
+
+  saveDrug(values) {
+    let id = this.getProfile().id;
+    var data = "stock=" + values.id;
+    let url = this.SAVEDRUG_URL + id + "/"; 
+    return this.doPost(url, data)
+        .map((res: Response) => res.json().stock)
+        .catch((error: any) => Observable.throw(error.json().error || 'Server Error'));
+  }
+
+  getSavedDrugs() {
+    let id = this.getProfile().id;
+    return this.http.get(this.SAVEDDRUGS_URL + id + "/")
+        .map((res: Response) => res.json().stock)
+        .catch((error: any) => Observable.throw(error.json().error || 'Server Error'));
+  }
+
+  removeSavedDrug(values) {
+    var data = "stock=" + values.id;
+    return this.doPost(this.REMOVESAVEDDRUG_URL, data)
+        .map((res: Response) => res.json().stock)
+        .catch((error: any) => Observable.throw(error.json().error || 'Server Error'));        
   }
 
   registerAccount(values) {

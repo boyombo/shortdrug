@@ -1,0 +1,33 @@
+<md-card>
+  <div style="overflow-x: auto;">
+     <table class="full">
+         <thead>
+           <tr>
+             <th>Brand Name</th>
+             <th>Generic Name</th>
+             <th>Available</th>
+             <th>Unit Cost</th>
+             <th>Expiry Date</th>
+             <th>Pharmacy</th>
+             <th>Delete</th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr *ngFor="let stock of items">
+             <td>{{stock.brand_name}}</td>
+             <td>{{stock.generic_name}}</td>
+             <td>{{stock.pack_size}}pcs x {{ stock.quantity }}</td>
+             <td>{{stock.unit_cost}}</td>
+             <td>{{stock.expiry_date}}</td>
+             <td>{{stock.pharmacy}} ({{stock.state}})</td>
+             <td>
+               <button md-button (click)="removeItem(stock)">
+                 <i class="material-icons">cancel</i>
+                 delete
+               </button>
+             </td>
+           </tr>
+         </tbody>
+       </table>
+  </div>
+</md-card>

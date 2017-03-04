@@ -33,6 +33,7 @@
              <th>Unit Cost</th>
              <th>Expiry Date</th>
              <th>Pharmacy</th>
+             <th>Save</th>
            </tr>
          </thead>
          <tbody>
@@ -43,6 +44,12 @@
              <td>{{stock.unit_cost}}</td>
              <td>{{stock.expiry_date}}</td>
              <td>{{stock.pharmacy}} ({{stock.state}})</td>
+             <td>
+               <button md-button (click)="saveStock(stock)">
+                 <i class="material-icons">save</i>
+                 Save
+               </button>
+             </td>
            </tr>
          </tbody>
        </table>

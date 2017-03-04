@@ -40,15 +40,9 @@ export class FindComponent implements OnInit {
     this.api.getStates().subscribe(data => {
       this.states = data;
       this.names = data.map(item => item.name);
-      console.log('states ' + data);
-      console.log('names ' + this.names);
-      console.log(this.filterStates('La'));
 
       let control = this.findForm.controls.state;
       console.log(control);
-      // this.filteredStates = control.valueChanges
-      //   .startWith(null)
-      //   .map(name => this.filterStates(name));
     });
   }
 
@@ -67,6 +61,15 @@ export class FindComponent implements OnInit {
     console.log(this.findForm.value.state);
     let val = this.findForm.value.state;
     this.filteredStates = this.filterStates(val);
+  }
+
+  saveStock(stock){
+    console.log('saving stock');
+    this.api.saveDrug(stock).subscribe(result => {
+      this.toastr.success('Saved Stock', 'Done');
+    }, error => {
+      this.toastr.error(error, 'Wait up!');
+    });
   }
 
 }

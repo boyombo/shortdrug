@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { UploadComponent } from './upload/upload.component';
 import { FindComponent } from './find/find.component';
 import { AuthGuard } from './auth-guard.service';
+import { SavedComponent } from './saved/saved.component';
 
 const appRoutes: Routes = [
       {
@@ -35,6 +36,11 @@ const appRoutes: Routes = [
       {
         path: 'find',
         component: FindComponent
+      },
+      {
+        path: 'saved',
+        component: SavedComponent,
+        canActivate: [AuthGuard]
       }
     ];
 
