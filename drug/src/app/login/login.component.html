@@ -1,0 +1,27 @@
+<md-card class="reg-card">
+  <h1>Login</h1>      
+  <p>
+      <md-hint *ngIf="errorMsg" [ngStyle]="{'color': 'red'}">{{errorMsg}}</md-hint>        
+  </p>
+  <form [formGroup]="loginForm">
+      <div class="semi-full">
+        <md-input-container class="full">
+        <input mdInput type="email" placeholder="Email" formControlName="email" />
+        </md-input-container>
+      </div>
+
+      <div class="semi-full">
+        <md-input-container class="full">
+          <!--<label for="subtext">Password</label>-->
+          <input mdInput type="password" placeholder="Password" formControlName="password" />
+        </md-input-container>
+      </div>
+
+      <div>
+      <button class="button" md-raised-button color="primary" (click)="login()" [disabled]="!loginForm.valid">Login</button>                    
+      </div>
+      <div> You don't have an account? 
+      <a routerLink="/register" md-button color="accent">Register</a>
+      </div>
+</form>
+</md-card>

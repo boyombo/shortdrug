@@ -1,20 +1,49 @@
+import { MaterialModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MyDatePickerModule } from 'mydatepicker';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { RegisterComponent } from './register/register.component';
+import { ApiService } from './api.service';
+import { AuthGuard } from './auth-guard.service';
+import { ProfileComponent, MyDialogRef } from './profile/profile.component';
+import { LoginComponent } from './login/login.component';
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import 'hammerjs';
+import { UploadComponent } from './upload/upload.component';
+import { FindComponent } from './find/find.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RegisterComponent,
+    ProfileComponent,
+    MyDialogRef,
+    LoginComponent,
+    UploadComponent,
+    FindComponent
   ],
+  entryComponents: [MyDialogRef],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    ReactiveFormsModule,
+    HttpModule,
+    MaterialModule.forRoot(),
+    AppRoutingModule,
+    MyDatePickerModule,
+    FlexLayoutModule,
+    ToastModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    ApiService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

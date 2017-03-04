@@ -1,0 +1,70 @@
+    <md-card class="reg-card">
+      <h1>Register your Pharmacy</h1>
+      <p>
+          <md-hint *ngIf="errorMsg" [ngStyle]="{'color': 'red'}">{{errorMsg}}</md-hint>        
+      </p>
+      <form [formGroup]="registerForm">
+        <div class="semi-full">
+          <md-input-container class="semi-full">
+              <!--<label for="main_text">Name of Pharmacy</label>-->
+            <input mdInput type="text" md-maxlength="200" formControlName="name" placeholder="Pharmacy Name" />
+          </md-input-container>
+        </div>
+         <div class="semi-full">
+            <md-input-container class="semi-full">
+              <input mdInput type="tel" formControlName="phone" placeholder="Phone Number" />
+            </md-input-container>
+        </div>
+        <div class="semi-full">
+            <md-input-container class="semi-full">
+              <input mdInput type="email" class="form-control" formControlName="email" placeholder="Email" />
+            </md-input-container>
+        </div>
+       
+
+        <div class="semi-full">
+           <table class="full" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td>
+                <md-input-container class="semi-full">
+                  <input mdInput type="password" formControlName="pwd1" placeholder="Password" />
+                </md-input-container>
+              </td>
+              <td>
+                <md-input-container class="semi-full">
+                <input mdInput type="password" formControlName="pwd2" placeholder="Verify Password" />
+                <md-hint *ngIf="passwordError" [ngStyle]="{'color': 'red'}">The passwords are not the same</md-hint>
+                </md-input-container>
+              </td>
+            </tr>
+          
+          </table>
+        </div>
+        
+        <div class="semi-full">
+          
+        </div>
+
+        <div class="semi-full">
+          <md-input-container class="semi-full">
+            <textarea mdInput formControlName="address" placeholder="Address"></textarea>
+          </md-input-container>
+        </div>
+
+        <div class="semi-full">
+            <md-select placeholder="State" formControlName="state" class="semi-full">
+              <md-option *ngFor="let state of states" [value]="state.id">{{state.name}}</md-option>
+            </md-select>
+        </div>
+
+        
+
+        <div>
+          <button class="button" md-raised-button color="primary" (click)="register()" [disabled]="!registerForm.valid">Register</button>
+        </div>
+        <div> Already have an account?
+          <a routerLink="/login" md-button color="accent">Login</a>
+        </div>
+      </form>
+    </md-card>
+ 

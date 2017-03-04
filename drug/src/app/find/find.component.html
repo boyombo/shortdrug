@@ -1,0 +1,50 @@
+<md-card>
+  <md-card-title>Find Drug</md-card-title>  
+  <md-card-content>
+    <form [formGroup]="findForm">
+    <div [fxLayout]="row" fxLayout.xs="column" fxFlex fxLayoutAlign="space-between end" fxLayoutGap="15px">
+       <md-input-container fxFlexAlign="start" fxFlex="1 1 40%" fxFlexOrder fxFlexOrder.xs="1">
+          <input mdInput type="text" formControlName="term" placeholder="Search"/>
+       </md-input-container>
+        <md-input-container fxFlexAlign="start" fxFlex="1 1 40%" fxFlexOrder fxFlexOrder.xs="1">
+          <input mdInput type="text" formControlName="state" placeholder="Location (optional)" [mdAutocomplete]="auto" (keyup)="textChanged()"/>
+       </md-input-container>
+        <md-autocomplete #auto="mdAutocomplete" fxFlexAlign="start" fxFlex="1 1 25%" fxFlexOrder fxFlexOrder.xs="2">
+          <md-option *ngFor="let fstate of filteredStates" [value]="fstate">
+            {{fstate}}
+          </md-option>
+        </md-autocomplete>
+        
+        <button fxFlex="1 1 20%" fxFlexAlign="start" fxFlexOrder fxFlexOrder.xs="3" class="button" md-raised-button color="primary" (click)="findDrugs()" [disabled]="!findForm.valid">
+          Search
+        </button>
+    </div>
+    </form>
+  </md-card-content>
+</md-card>
+<md-card>
+  <div [hidden]="!stockList || stockList.length == 0" style="overflow-x: auto;">
+     <table class="full">
+         <thead>
+           <tr>
+             <th>Brand Name</th>
+             <th>Generic Name</th>
+             <th>Available</th>
+             <th>Unit Cost</th>
+             <th>Expiry Date</th>
+             <th>Pharmacy</th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr *ngFor="let stock of stockList">
+             <td>{{stock.brand_name}}</td>
+             <td>{{stock.generic_name}}</td>
+             <td>{{stock.pack_size}}pcs x {{ stock.quantity }}</td>
+             <td>{{stock.unit_cost}}</td>
+             <td>{{stock.expiry_date}}</td>
+             <td>{{stock.pharmacy}} ({{stock.state}})</td>
+           </tr>
+         </tbody>
+       </table>
+  </div>
+</md-card>

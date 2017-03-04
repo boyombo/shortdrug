@@ -1,3 +1,100 @@
-<h1>
-  {{title}}
-</h1>
+<!--
+
+<md-sidenav-container fullscreen>
+  <md-sidenav #sidenav mode="side" opened="true" color="secondary">
+    <md-toolbar color="primary">
+  <span>{{title}}</span>
+  <span class="spacer"></span>
+  <!--button md-icon-button [mdMenuTriggerFor]="menu"-->
+  <!--button md-icon-button>
+    <md-icon>more_vert</md-icon>
+  </button-->
+
+  <!--md-menu #menu="mdMenu">
+  <a routerLink="/profile" md-menu-item>
+    <md-icon>person</md-icon>
+    <span>Profile</span>
+  </a>
+  <button md-menu-item>
+    <md-icon>search</md-icon>
+    <span> Find Drugs</span>
+  </button>
+  <a routerLink="/upload" md-menu-item>
+    <md-icon>file_upload</md-icon>
+     <span>Upload Drugs</span>
+  </a>
+  <a routerLink="/login" md-menu-item>
+    <md-icon>exit_to_app</md-icon>
+     <span>Logout</span>
+  </a>
+</md-menu-->
+
+<!--
+</md-toolbar>
+
+<md-nav-list>
+  <div md-list-item color="secondary">
+    <p>Welcome</p>
+  </div>
+      <a md-list-item routerLink="/profile" class="md-icon-button">
+        <md-icon>person</md-icon>
+        <span>Profile</span>
+      </a>
+      <a md-list-item routerLink="/find">
+        <md-icon>search</md-icon>
+        <span> Find Drugs</span>
+      </a>
+      <a md-list-item routerLink="/upload">
+        <md-icon>file_upload</md-icon>
+        <span>Upload Drugs</span>
+      </a>
+      <a md-list-item routerLink="/login">
+        <md-icon>exit_to_app</md-icon>
+        <span>Logout</span>
+      </a>
+    </md-nav-list>
+</md-sidenav>
+<div class="main-content">
+  <router-outlet></router-outlet>
+</div>
+</md-sidenav-container>
+-->
+
+ <div class="containerX">
+    <div class="colorNested box">
+      <header>
+         <md-toolbar color="primary">
+          <span>{{title}}</span>
+         </md-toolbar>
+      </header>
+      <div id="main" [fxLayout]="row" fxLayout.xs="column" fxFlex>
+        <nav fxFlex="1 6 20%" fxFlexOrder fxFlexOrder.xs="2">
+          <md-nav-list>
+            <div md-list-item color="secondary">
+              <p>Welcome</p>
+            </div>
+            <a md-list-item routerLink="/profile" class="md-icon-button">
+              <md-icon>person</md-icon>
+              <span>Profile</span>
+            </a>
+            <a md-list-item routerLink="/find">
+              <md-icon>search</md-icon>
+              <span> Find Drugs</span>
+            </a>
+            <a md-list-item routerLink="/upload">
+              <md-icon>file_upload</md-icon>
+              <span>Upload Drugs</span>
+            </a>
+            <a md-list-item routerLink="/login">
+              <md-icon>exit_to_app</md-icon>
+              <span>Logout</span>
+            </a>
+          </md-nav-list>
+        </nav>
+        <article fxFlex="3 1 80%" fxFlexOrder fxFlexOrder.xs="1"> 
+          <router-outlet></router-outlet>
+        </article>
+      </div>
+      <footer>&copy; 2017 Curbs Healthcare</footer>
+    </div>
+</div>

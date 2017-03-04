@@ -1,0 +1,70 @@
+  <md-card class="reg-card">
+      <h1>Upload Drugs</h1>
+      <p>
+          <md-hint *ngIf="errorMsg" [ngStyle]="{'color': 'red'}">{{errorMsg}}</md-hint>        
+      </p>
+      <form [formGroup]="uploadForm">
+        <div class="semi-full">
+          <md-input-container class="semi-full">
+              <!--<label for="main_text">Name of Pharmacy</label>-->
+            <input mdInput type="text" formControlName="generic_name" placeholder="Generic Name" />
+          </md-input-container>
+        </div>
+         <div class="semi-full">
+            <md-input-container class="semi-full">
+              <input mdInput type="text" formControlName="brand_name" placeholder="Brand Name" />
+            </md-input-container>
+        </div>
+
+        <div class="semi-full">
+           <table class="full" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td>
+               <md-input-container class="semi-full">
+                  <input mdInput type="text" formControlName="manufacturer" placeholder="Manufacturer" />
+                </md-input-container>
+              </td>
+               <td>
+                 <md-input-container class="semi-full">
+                <input mdInput type="text" formControlName="batch_number" placeholder="Batch Number" />
+                </md-input-container>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        
+         <div class="semi-full">
+            <md-input-container class="half">
+              <input mdInput type="number" formControlName="quantity" placeholder="Quantity Available" />
+            </md-input-container>
+        </div>
+        
+         <div class="semi-full">
+           <table class="full" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td>
+                <md-input-container class="semi-full">
+                <input mdInput type="number" formControlName="pack_size" placeholder="Pack Size" />
+                </md-input-container>
+              </td>
+               <td>
+                <md-input-container class="semi-full">
+                  <input mdInput type="number" formControlName="unit_cost" placeholder="Cost per pack" />
+                </md-input-container>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="semi-full">
+          <div class="semi-full">
+            <my-date-picker required formControlName="expiry_date" [options]="MyDatePickerOptions" placeholder="Expiry Date"></my-date-picker>
+          </div>
+        </div>
+
+        <div>
+          <button class="button" md-raised-button color="primary" (click)="save()" [disabled]="!uploadForm.valid">Save</button>
+        </div>
+      </form>
+    </md-card>

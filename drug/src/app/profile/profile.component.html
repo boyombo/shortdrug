@@ -1,0 +1,75 @@
+<div [hidden]="!showBusy">
+ <md-progress-spinner class="spinner" style="margin:0 auto;" mode="indeterminate"></md-progress-spinner>
+</div>
+ <div [fxLayout]="column" fxLayout.xs="column" fxFlex fxLayoutAlign="space-between start" fxLayoutAlign.xs="start space-between" fxLayoutGap="15px">
+   <div fxFlex="1 1 30%" fxFlexOrder="1" fxFlexOrder.xs="1">
+     <md-card>
+      <md-card-title>{{pharmacy.name}}</md-card-title>
+      <md-card-content>
+         <div [fxLayout]="column" fxLayout.xs="column" fxFlex>
+          <span fxFlex="20%" fxFlexOrder="1">
+            <i class="material-icons">phone</i>
+          </span>
+          <span fxFlex="80%" fxFlexOrder="2">{{pharmacy.phone}}</span>
+        </div>
+        <div [fxLayout]="column" fxLayout.xs="column" fxFlex>
+          <span fxFlex="20%" fxFlexOrder="1">
+            <i class="material-icons">my_location</i>
+          </span>
+          <span fxFlex="80%" fxFlexOrder="2">{{pharmacy.address}}</span>
+        </div>
+        <div [fxLayout]="column" fxLayout.xs="column" fxFlex>
+          <span fxFlex="20%" fxFlexOrder="1">
+          </span>
+          <span fxFlex="80%" fxFlexOrder="2">{{pharmacy.state}}</span>
+        </div>
+          <div [fxLayout]="column" fxLayout.xs="column" fxFlex>
+          <span fxFlex="20%" fxFlexOrder="1">
+            <i class="material-icons">location_on</i>
+          </span>
+          <span fxFlex="80%" fxFlexOrder="2">{{pharmacy.latitude}}, {{pharmacy.longitude}}</span>
+        </div>
+      
+      </md-card-content>
+    </md-card>
+   </div>
+   <md-card fxFlex="1 2 70%" fxFlexOrder="2" fxFlexOrder.xs="2">
+     <md-card-content>
+       <div style="overflow-x: auto;">
+          <table>
+            <caption><h3>Stock List</h3></caption>
+            <thead>
+              <tr>
+                <th>Brand Name</th>
+                <th>Quantity</th>
+                <th>Unit Cost</th>
+                <th>Expiry Date</th>
+                <th>Edit</th>
+                <th>Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let stock of stockList">
+                <td>{{stock.brand_name}}</td>
+                <td>{{stock.pack_size}} x {{stock.quantity}}</td>
+                <td>{{stock.unit_cost}}</td>
+                <td>{{stock.expiry_date}}</td>
+                <td>
+                  <a md-button>
+                    <i class="material-icons">mode_edit</i>
+                    edit
+                  </a>
+                </td>
+                <td>
+                  <button md-button color="warn" (click)="removeDrug(stock)">
+                    <i class="material-icons">cancel</i>
+                    remove
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+       </div>
+     </md-card-content>
+   </md-card>
+ </div>

@@ -1,0 +1,46 @@
+import { MaterialModule } from '@angular/material';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
+
+import { AppComponent } from './app.component';
+import { RegisterComponent } from './register/register.component';
+import { ApiService } from './api.service';
+import { ProfileComponent } from './profile/profile.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    RegisterComponent,
+    ProfileComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpModule,
+    MaterialModule.forRoot(),
+    RouterModule.forRoot([
+      {
+        path: 'register',
+        component: RegisterComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent
+      },
+      {
+        path: '',
+        redirectTo: '/profile',
+        pathMatch: 'full'
+      }
+    ])
+  ],
+  providers: [
+    ApiService
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
