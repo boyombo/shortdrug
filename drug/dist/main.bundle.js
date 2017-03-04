@@ -476,7 +476,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var ApiService = (function () {
     function ApiService(http) {
         this.http = http;
-        this.BASE_URL = 'http://everyday.com.ng/drugs/';
+        this.BASE_URL = 'http://everyday.com.ng:8000/drugs/';
         // BASE_URL: string = 'http://localhost:8000/drugs/';
         // BASE_URL: string = 'http://192.168.10.2:8000/drug/';
         this.REGISTER_URL = this.BASE_URL + 'register/';
