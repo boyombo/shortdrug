@@ -16,7 +16,7 @@ const appRoutes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
-        // canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: '',
@@ -30,7 +30,7 @@ const appRoutes: Routes = [
       {
           path: 'upload',
           component: UploadComponent,
-        //   canActivate: [AuthGuard]
+          canActivate: [AuthGuard]
       },
       {
         path: 'find',
