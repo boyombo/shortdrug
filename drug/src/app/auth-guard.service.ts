@@ -12,7 +12,8 @@ export class AuthGuard implements CanActivate{
         }
     canActivate(){
         console.log('AuthGuard called');
-        if (this.api.isLoggedIn){
+        let auth_token = this.api.getUser();
+        if (auth_token){
             return true;
         }
         this.router.navigate(['/login']);
