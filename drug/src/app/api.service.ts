@@ -8,8 +8,8 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class ApiService {
 
-  // BASE_URL: string = 'http://everyday.com.ng/mcq/';
-  BASE_URL: string = 'http://localhost:8000/drugs/';
+  BASE_URL: string = 'http://everyday.com.ng/drugs/';
+  // BASE_URL: string = 'http://localhost:8000/drugs/';
   // BASE_URL: string = 'http://192.168.10.2:8000/drug/';
   REGISTER_URL: string = this.BASE_URL + 'register/';
   AUTH_URL: string = this.BASE_URL + 'auth/';
