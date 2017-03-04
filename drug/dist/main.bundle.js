@@ -35,7 +35,8 @@ var AuthGuard = (function () {
     }
     AuthGuard.prototype.canActivate = function () {
         console.log('AuthGuard called');
-        if (this.api.isLoggedIn) {
+        var auth_token = this.api.getUser();
+        if (auth_token) {
             return true;
         }
         this.router.navigate(['/login']);
