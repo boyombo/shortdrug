@@ -1,0 +1,10 @@
+
+@import "../../assets/bootstrap/_variables.scss";
+@import "../../assets/sass/widgets/_sidebar.scss";
+
+article, nav, aside, header, footer {
+  margin: 4px;
+  padding: 0px;
+  /*border: 1px solid #cccc33;*/
+  /*border-radius: 7pt;*/
+}

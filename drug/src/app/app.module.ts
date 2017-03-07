@@ -18,6 +18,7 @@ import 'hammerjs';
 import { UploadComponent } from './upload/upload.component';
 import { FindComponent } from './find/find.component';
 import { SavedComponent } from './saved/saved.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { SavedComponent } from './saved/saved.component';
     LoginComponent,
     UploadComponent,
     FindComponent,
-    SavedComponent
+    SavedComponent,
+    SidenavComponent
   ],
   entryComponents: [MyDialogRef],
   imports: [
@@ -46,6 +48,7 @@ import { SavedComponent } from './saved/saved.component';
     ApiService,
     AuthGuard
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [SidenavComponent]
 })
 export class AppModule { }

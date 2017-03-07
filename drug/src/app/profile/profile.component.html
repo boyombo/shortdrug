@@ -1,3 +1,6 @@
+<div id="main" [fxLayout]="row" fxLayout.xs="column" fxFlex>
+  <app-sidenav fxFlex="1 1 20%" fxFlexOrder fxFlexOrder.xs="2"></app-sidenav>
+  <article fxFlex="3 2 80%" fxFlexOrder fxFlexOrder.xs="1">
 <div [hidden]="!showBusy">
  <md-progress-spinner class="spinner" style="margin:0 auto;" mode="indeterminate"></md-progress-spinner>
 </div>
@@ -73,3 +76,5 @@
      </md-card-content>
    </md-card>
  </div>
+  </article>
+</div>

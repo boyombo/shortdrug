@@ -1,0 +1,66 @@
+<!--aside id="sidebar">
+  <md-nav-list>
+    <div md-list-item color="secondary">
+      <p>Welcome</p>
+    </div>
+    <a md-list-item routerLink="/profile" class="md-icon-button">
+      <md-icon>person</md-icon>
+      <span>Profile</span>
+    </a>
+    <a md-list-item routerLink="/find">
+      <md-icon>search</md-icon>
+      <span> Find Drugs</span>
+    </a>
+    <a md-list-item routerLink="/upload">
+      <md-icon>file_upload</md-icon>
+      <span>Upload Drugs</span>
+    </a>
+    <a md-list-item routerLink="/saved">
+      <md-icon>save</md-icon>
+      <span>Saved Drugs</span>
+    </a>
+    <a md-list-item routerLink="/login">
+      <md-icon>exit_to_app</md-icon>
+      <span>Logout</span>
+    </a>
+  </md-nav-list>
+</aside-->
+
+
+
+<aside id="sidebar" color="primary">
+  <nav color="primary">
+    <div class="sidenav-outer" color="primary">
+        <div class="menu-body">
+            <ul class="nav nav-pills nav-stacked sidenav">
+                <li>
+                    <a [routerLink]="profile" class="website-name">
+                        Drug Xchange
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="profile" class="logo">
+                        <img src="assets/images/flat-avatar.png" class="user-avatar" />
+                        <p class="text-xs-center">Ani pascal</p>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="profile">
+                        <i class="fa fa-home"></i>
+                        <span>&nbsp; Home</span>
+                    </a>
+                </li>
+                <li> 
+                    <a href='http://www.strapui.com/themes/ani-angular-2-bootstrap-4-theme/'>
+                        <i class="fa fa-shopping-cart"></i>
+                        <span>&nbsp; Ani Premium Theme</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="profile"><i class="fa fa-sign-out"></i><span>&nbsp;&nbsp; Logout</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+  </nav>
+</aside>
